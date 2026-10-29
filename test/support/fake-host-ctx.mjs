@@ -4,7 +4,7 @@
  * Both the source test and the artifact test use these, so the built entry is
  * judged by the same expectations as the source rather than by export names
  * alone.
- * @module dsh-local-soul-presets/test/support/fake-host-ctx
+ * @module dsh-soul-presets/test/support/fake-host-ctx
  */
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'

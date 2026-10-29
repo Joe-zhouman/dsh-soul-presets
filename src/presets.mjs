@@ -5,7 +5,7 @@
  * throwing, because discovery must keep listing what the directory holds — a
  * preset hidden on a parse error is a directory that occupies its id while
  * being invisible and undeletable from the UI.
- * @module dsh-local-soul-presets/src/presets
+ * @module dsh-soul-presets/src/presets
  */
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'

@@ -1,7 +1,7 @@
 /**
  * Behavior of the per-session selection store: the durable half of "the preset
  * follows the session".
- * @module dsh-local-soul-presets/test/selection
+ * @module dsh-soul-presets/test/selection
  */
 import assert from 'node:assert/strict'
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'

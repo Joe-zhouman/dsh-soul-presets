@@ -6,7 +6,7 @@
  * which optional chaining cannot protect against. A plain object stub hides that
  * entirely — the shipped plugin once failed activation in the browser on exactly
  * that mistake while every test stayed green.
- * @module dsh-local-soul-presets/test/support/fake-client-ctx
+ * @module dsh-soul-presets/test/support/fake-client-ctx
  */
 
 /** Client service names cordis guards on read. */

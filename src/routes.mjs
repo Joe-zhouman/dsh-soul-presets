@@ -7,7 +7,7 @@
  * (kind, path), and a throw there kills the host fiber, so two exact routes on
  * the same path would take the whole preset down. The method picks the action
  * and the id travels in the JSON body for both.
- * @module dsh-local-soul-presets/src/routes
+ * @module dsh-soul-presets/src/routes
  */
 import { unlinkSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'

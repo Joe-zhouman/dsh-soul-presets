@@ -3,7 +3,7 @@
  * imports. The example block's exact bytes are the user's specification — the
  * separator on its own line, every tag on its own line, contents not indented —
  * so this module is the one place that layout is defined.
- * @module dsh-local-soul-presets/src/assemble
+ * @module dsh-soul-presets/src/assemble
  */
 
 /** Byte ceiling for one assembled preset, matching the prompt row's own file cap. */

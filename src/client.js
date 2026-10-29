@@ -11,7 +11,7 @@
  *
  * Each component receives the seat's fields as props plus the framework-seated
  * `t` (from the registration's `locale:`); it must not expect a `t` on the seat.
- * @module dsh-local-soul-presets/src/client
+ * @module dsh-soul-presets/src/client
  */
 import * as React from 'react'
 import { Button, IconChevronDownOutlineRegular, Menu } from '@deepseek-ai/dsh-client-ui-primitives'
@@ -285,7 +285,7 @@ function ManagementSection(props) {
  * @param ctx - client root context, with `slots`, `configForms` and `locale` live.
  */
 export function apply(ctx) {
-  ctx.effect(() => installStyles(), 'dsh-local-soul-presets: stylesheet')
+  ctx.effect(() => installStyles(), 'dsh-soul-presets: stylesheet')
   createSeats(ctx).registerSurfaces({
     chip: PresetChip,
     dock: PresetDock,

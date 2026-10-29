@@ -6,7 +6,7 @@
  * Kept free of React so the name/description/hint mapping is mechanically
  * assertable — the visibility of those three strings is the feature's stated
  * pain, and it should not depend on a browser to verify.
- * @module dsh-local-soul-presets/src/client-state
+ * @module dsh-soul-presets/src/client-state
  */
 
 /** The route the Host serves the roster on. */

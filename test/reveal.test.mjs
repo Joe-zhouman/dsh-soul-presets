@@ -1,7 +1,7 @@
 /**
  * Behavior of the directory opener: which command each platform gets, and what
  * the caller is told when no desktop takes the request.
- * @module dsh-local-soul-presets/test/reveal
+ * @module dsh-soul-presets/test/reveal
  */
 import assert from 'node:assert/strict'
 import { EventEmitter } from 'node:events'

@@ -7,7 +7,7 @@
  * active profile's patch persists a change, and Loader commits the new id
  * into the running reference without remounting the plugin — which is what
  * lets the preset row read the current default at its next assembly.
- * @module dsh-local-soul-presets/src/settings
+ * @module dsh-soul-presets/src/settings
  */
 import z from '@deepseek-ai/schemastery'
 import { PRESET_ID } from './presets.mjs'

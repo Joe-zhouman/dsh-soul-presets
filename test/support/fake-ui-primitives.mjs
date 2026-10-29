@@ -10,7 +10,7 @@
  * `Button` and the chevron icon are never called: the recording React keeps a
  * component element as an element, so a test reads their props and children
  * straight off it. They exist to satisfy the bundle's imports.
- * @module dsh-local-soul-presets/test/support/fake-ui-primitives
+ * @module dsh-soul-presets/test/support/fake-ui-primitives
  */
 
 /**

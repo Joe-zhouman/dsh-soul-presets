@@ -5,7 +5,7 @@
  * yet it holds the switch that decides whether a preset is consulted at all, and
  * the section flags that keep prompt text literal. A regression here would pass
  * every bundle test.
- * @module dsh-local-soul-presets/test/soul-prompt-row
+ * @module dsh-soul-presets/test/soul-prompt-row
  */
 import assert from 'node:assert/strict'
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'

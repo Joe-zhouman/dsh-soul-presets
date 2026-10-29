@@ -6,7 +6,7 @@
  * package's cancellation plumbing nor its WSL handoff, while linking a harness
  * package from an out-of-repo bundle adds resolution risk (it carries a cordis
  * peer) for behavior this feature never uses.
- * @module dsh-local-soul-presets/src/reveal
+ * @module dsh-soul-presets/src/reveal
  */
 import { spawn } from 'node:child_process'
 

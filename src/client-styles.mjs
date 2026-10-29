@@ -12,11 +12,11 @@
  * geometry copies the mode selector's trigger (`PermissionSelect.module.css`
  * `.trigger`) rather than approximating it, since the two sit in one composer
  * row; every other value is a `--dsw-*` token so both themes are covered.
- * @module dsh-local-soul-presets/src/client-styles
+ * @module dsh-soul-presets/src/client-styles
  */
 
 /** Bundle id; also the `data-plugin` value disposal removes tags by. */
-export const STYLE_PLUGIN_ID = 'dsh-local-soul-presets'
+export const STYLE_PLUGIN_ID = 'dsh-soul-presets'
 
 /** Names this sheet inside the page, for the duplicate guard and HMR bookkeeping. */
 export const STYLE_TAG_ID = `${STYLE_PLUGIN_ID}/client-styles.css`

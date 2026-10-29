@@ -13,7 +13,7 @@
  * That entry point is an internal field of the Session Controller rather than a
  * published service method. A missing one is reported once at application time
  * and leaves the session on its current model; nothing else breaks.
- * @module dsh-local-soul-presets/src/models
+ * @module dsh-soul-presets/src/models
  */
 import { SESSION_ID } from './selection.mjs'
 

@@ -13,7 +13,7 @@
  * context the source test uses, the client factory is executed the way the
  * browser executes it, its components are rendered with a recording React, and
  * their event callbacks are fired.
- * @module dsh-local-soul-presets/test/build
+ * @module dsh-soul-presets/test/build
  */
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
@@ -244,7 +244,7 @@ test('构建成功，且宿主产物导出插件面', async () => {
   const run = buildOnce()
   assert.equal(run.status, 0, `build exited ${String(run.status)}\n${run.stdout ?? ''}${run.stderr ?? ''}`)
   const host = await import(pathToFileURL(join(root, 'lib/index.js')).href)
-  assert.equal(host.name, 'dsh-local-soul-presets')
+  assert.equal(host.name, 'dsh-soul-presets')
   assert.deepEqual(host.inject, ['webServer', 'agents', 'llm', 'sessionController', 'sessionProjections'])
   assert.equal(typeof host.apply, 'function')
   assert.equal(typeof host.resolvePresetRoot, 'function')
@@ -276,7 +276,7 @@ test('客户端产物是模块加载器工厂，而不是 ESM 模块', () => {
   const client = readFileSync(join(root, 'lib/client.js'), 'utf8')
   const opening = client.slice(0, 400).replace(/\s+/gu, ' ')
   assert.ok(
-    opening.startsWith('window.__ModuleLoader__.load({ id: "dsh-local-soul-presets", factory: (require) => {'),
+    opening.startsWith('window.__ModuleLoader__.load({ id: "dsh-soul-presets", factory: (require) => {'),
     `lib/client.js opens with something other than the module-loader factory:\n${opening}`,
   )
   assert.match(client, /return module\.exports;\s*\}\s*\}\);/u, 'the factory must close with the module exports')
@@ -286,7 +286,7 @@ test('客户端产物是模块加载器工厂，而不是 ESM 模块', () => {
 test('客户端产物真的注册三个界面，且只向模块表要两个平台模块', () => {
   assert.equal(buildOnce().status, 0, 'the artifacts are only judged from a successful build')
   const { registration, exported, registrations } = loadClient()
-  assert.equal(registration.id, 'dsh-local-soul-presets')
+  assert.equal(registration.id, 'dsh-soul-presets')
   assert.deepEqual(exported.inject, ['slots', 'configForms', 'locale', 'remote'])
   assert.deepEqual(registrations.map(entry => entry.options.name), [
     'conversation.input.left', 'conversation.input.dock', 'settings.section',
@@ -366,8 +366,8 @@ test('样式表按插件标记注入一次，并带着 chip 与列表行的规�
   await withDocument((tags) => {
     loadClient()
     assert.equal(tags.length, 1, '激活必须注入恰好一份样式表')
-    assert.equal(tags[0].dataset.plugin, 'dsh-local-soul-presets')
-    assert.equal(tags[0].dataset.pluginCss, 'dsh-local-soul-presets/client-styles.css')
+    assert.equal(tags[0].dataset.plugin, 'dsh-soul-presets')
+    assert.equal(tags[0].dataset.pluginCss, 'dsh-soul-presets/client-styles.css')
     // The two surfaces the sheet owns: the composer chip, and the row body
     // rendered inside the shared menu card.
     assert.match(tags[0].textContent, /\.dsh-sp-chip\b/u)

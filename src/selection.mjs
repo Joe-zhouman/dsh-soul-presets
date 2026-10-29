@@ -6,7 +6,7 @@
  * The file is this plugin's own persistence, never a preset: roster discovery
  * lists only *.toml files whose stem matches the id rule, so .selections.json
  * cannot appear as a row.
- * @module dsh-local-soul-presets/src/selection
+ * @module dsh-soul-presets/src/selection
  */
 import { readFileSync, writeFileSync } from 'node:fs'
 

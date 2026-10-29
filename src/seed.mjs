@@ -13,7 +13,7 @@
  * Seeding never overwrites (a same-named file cannot exist when the rule held,
  * but the copy stays guarded anyway) and never deletes; the files land as
  * ordinary user-owned presets, editable and removable through the same routes.
- * @module dsh-local-soul-presets/src/seed
+ * @module dsh-soul-presets/src/seed
  */
 import { copyFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'

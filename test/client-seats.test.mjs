@@ -5,7 +5,7 @@
  * These drive the seat's real operations against a stubbed `fetch` and a stub
  * settings scope, so a no-op implementation, a wrong method or path, a missed
  * error, a stale post-mutation read, or a duplicate read all fail here.
- * @module dsh-local-soul-presets/test/client-seats
+ * @module dsh-soul-presets/test/client-seats
  */
 import assert from 'node:assert/strict'
 import { test } from 'node:test'

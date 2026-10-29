@@ -9,12 +9,12 @@
  * hands the component a function as its props), and `t` comes from the
  * registration's own `locale:` — putting a `t` in the seat would override the
  * synthesized one with undefined.
- * @module dsh-local-soul-presets/src/client-seats
+ * @module dsh-soul-presets/src/client-seats
  */
 import { PRESETS_ROUTE, REVEAL_ROUTE, ROSTER_ROUTE, SELECT_ROUTE, decodeRoster } from './client-state.mjs'
 
 /** Bundle id, as the profile's cordis patch row names it. */
-const ID = 'dsh-local-soul-presets'
+const ID = 'dsh-soul-presets'
 
 /** The profile entry whose `active` field holds the selection; see the Host `Config`. */
 export const SOUL_PRESET_ENTRY = 'local-soul-presets'

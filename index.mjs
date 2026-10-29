@@ -15,7 +15,7 @@
  * while a write settles through Loader asynchronously. The
  * `loader/volatile-update` listener refreshes the cache; the text provider only
  * reads memory.
- * @module dsh-local-soul-presets
+ * @module dsh-soul-presets
  */
 import { mkdirSync } from 'node:fs'
 import { homedir } from 'node:os'
@@ -30,7 +30,7 @@ import { createSelectionStore, SESSION_ID } from './src/selection.mjs'
 import { SoulPresetSettings } from './src/settings.mjs'
 
 /** Bundle id, as the profile's cordis patch row names it. */
-export const name = 'dsh-local-soul-presets'
+export const name = 'dsh-soul-presets'
 
 /** The active-preset selection, projected into the settings form for this entry. */
 export const Config = SoulPresetSettings

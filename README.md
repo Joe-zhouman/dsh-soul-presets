@@ -1,12 +1,12 @@
-# 预设提示词插件（dsh-local-soul-presets）维护指南
+# 预设提示词插件（dsh-soul-presets）维护指南
 
-本仓库是 `dsh-local-soul-presets` 插件的源码仓库，README 兼作维护手册。它只描述插件本身、预设文件格式、拼装规则、路由与启停／移除步骤；部署环境（Node 路径、计划任务、凭据解析）见部署机的 `.local-deploy/deployment.md`，设计理由见 `.local-deploy/specs/soul-presets.md`（均在 dsh 检出内，不随本仓库）。
+本仓库是 `dsh-soul-presets` 插件的源码仓库，README 兼作维护手册。它只描述插件本身、预设文件格式、拼装规则、路由与启停／移除步骤；部署环境（Node 路径、计划任务、凭据解析）见部署机的 `.local-deploy/deployment.md`，设计理由见 `.local-deploy/specs/soul-presets.md`（均在 dsh 检出内，不随本仓库）。
 
 ## 包位置与名称
 
 | 项 | 值 |
 |---|---|
-| 包名 | `dsh-local-soul-presets` |
+| 包名 | `dsh-soul-presets` |
 | 版本 | `0.1.7`（`private`，不发布） |
 | 部署机工作副本 | `L:\dsh\.local-deploy\soul-presets-plugin\`（即本仓库的检出） |
 | 类型 | host + client bundle（`dsh.client.platform: web`，自带 `dsh.bundle.patch`） |
@@ -202,13 +202,13 @@ pnpm dsh plugin --profile web add "file:L:/dsh/.local-deploy/soul-presets-plugin
 改完源码重建后要刷新安装副本：`file:` 依赖按 spec 判等，源目录内容变了它仍报 `Already up to date`，副本会停在旧字节。**必须先 `remove` 再 `add`**：
 
 ```bash
-pnpm dsh plugin --profile web remove dsh-local-soul-presets
+pnpm dsh plugin --profile web remove dsh-soul-presets
 pnpm dsh plugin --profile web add "file:L:/dsh/.local-deploy/soul-presets-plugin"
 ```
 
 构建：`cd .local-deploy/soul-presets-plugin && pnpm run build`（两个 pass：host ESM + client CJS factory）。客户端产物由 client-hmr 以 stat 轮询推送新 rev，重新安装会重新分配一次初始 rev，所以**已打开的页面不会自动拿到新 bundle，需要刷新页面**。
 
-移除：`pnpm dsh plugin --profile web remove dsh-local-soul-presets`。移除后问答模式退回只读 `SOUL.md`（因为 `presets: true` 时拿不到服务就退回读文件），不需要改另外两处。
+移除：`pnpm dsh plugin --profile web remove dsh-soul-presets`。移除后问答模式退回只读 `SOUL.md`（因为 `presets: true` 时拿不到服务就退回读文件），不需要改另外两处。
 
 启停服务用 `L:\dsh\.local-deploy\start-web.cmd` / `stop-web.cmd`；调试才用前台版本。浏览器报"拒绝连接"时先确认 `netstat -ano | findstr 127.0.0.1:3080` 有 `LISTENING`。
 
@@ -282,7 +282,7 @@ pnpm test
 
 **一条实测观察**：拼装顺序是预设在前、工作区 `SOUL.md` 追加在后，所以工作区里那份很长的提示词（本机 `L:dshSOUL.md` 是一份公文写作 prompt）会跟在预设之后一起进系统提示词。实测中模型仍按预设的「只输出译文」作答，但两者语义相冲时工作区那份的位置更靠后；若想让预设压过工作区文件，把 `soul-prompt.mjs` 里两段的拼接顺序反过来即可。
 
-**界面改版在真实浏览器里验收（2026-09-22 第二轮）**：用内置浏览器打开 `127.0.0.1:3080`（重新 `remove`+`add` 后按 `stop-web.cmd` 的做法重启过服务，页面刷新后生效），逐项确认——`style[data-plugin-css="dsh-local-soul-presets/client-styles.css"]` 恰好一份；chip 的计算样式是 28px 高、24px 圆角、13px、次级文字色，与紧邻的访问模式触发器同族；切换列表 20px 圆角、每行两行文字（名字 + 简介 · hint）、选中行带勾；放入 14 个临时预设后列表 696px 高、内容 784px，`scrollTop` 能从 0 滚到 96，滚动条占 8px 布局宽且取到 l2 滚动条 token；设置页「预设提示词」分区渲染出目录路径、14 行（名字 + 简介 + 删除）与工具栏三颗按钮，且不再有自带标题；点「删除」出现红色「确认删除」与「取消」，确认后该行消失、列表变 13 行、`tmp-probe-01.toml` 真的从磁盘消失；点「新建」按模板建出 `probe-ui-new.toml`（内容就是模板）、列表随即多出该行且带模板简介，再走一次删除把它清掉、文件消失；最后点「重新载入」，列表回到 1 行、当前项带 `aria-current="true"`、无错误提示。临时文件已全部删除，目录只剩 `translate.toml`，`active` 未变。
+**界面改版在真实浏览器里验收（2026-09-22 第二轮）**：用内置浏览器打开 `127.0.0.1:3080`（重新 `remove`+`add` 后按 `stop-web.cmd` 的做法重启过服务，页面刷新后生效），逐项确认——`style[data-plugin-css="dsh-soul-presets/client-styles.css"]` 恰好一份；chip 的计算样式是 28px 高、24px 圆角、13px、次级文字色，与紧邻的访问模式触发器同族；切换列表 20px 圆角、每行两行文字（名字 + 简介 · hint）、选中行带勾；放入 14 个临时预设后列表 696px 高、内容 784px，`scrollTop` 能从 0 滚到 96，滚动条占 8px 布局宽且取到 l2 滚动条 token；设置页「预设提示词」分区渲染出目录路径、14 行（名字 + 简介 + 删除）与工具栏三颗按钮，且不再有自带标题；点「删除」出现红色「确认删除」与「取消」，确认后该行消失、列表变 13 行、`tmp-probe-01.toml` 真的从磁盘消失；点「新建」按模板建出 `probe-ui-new.toml`（内容就是模板）、列表随即多出该行且带模板简介，再走一次删除把它清掉、文件消失；最后点「重新载入」，列表回到 1 行、当前项带 `aria-current="true"`、无错误提示。临时文件已全部删除，目录只剩 `translate.toml`，`active` 未变。
 **三条限制**：本机内置浏览器送不进 Playwright 定位点击，上述点击走的是页面内 DOM `.click()`（React 的 `onClick` 照常触发，能证明组件接线，不证明指针命中），真实指针路径本轮没重跑——上一轮验收 5／16 已经走过真实交互，本轮只动样式；**内置浏览器还会吞掉 `window.prompt`**（第一次点「新建」既没有对话框也没有新行，说明原件返回了 null），所以新建那一轮把 `window.prompt` 临时替换成记录器再点，验证的是「按钮 → prompt 文案 → 创建路由 → 列表刷新」这条接线，原生对话框本身没看到；「打开预设目录」本轮没点（它会弹出资源管理器窗口），它仍只有单元测试覆盖。
 
 **一处只在真实浏览器里暴露的缺陷（已修）**：客户端 `inject` 少了 `remote`。cordis 的服务访问器对**未声明服务是抛错**的，所以 `ctx.remote?.$on?.(…)` 的可选链救不了它——插件在浏览器里激活失败（`web boot: 1 entry did not activate`），而当时 94 个用例全绿，因为测试替身是普通对象、没有这层守卫。修法是补上声明；同时把测试替身改成 Proxy，未声明服务的读取按 cordis 的方式抛错（把缺陷放回去会让 21 个用例变红，已验证）。教训：本部署的验收必须包含一次真实浏览器加载，机械检查（产物被引用、被服务）证明不了激活成功。

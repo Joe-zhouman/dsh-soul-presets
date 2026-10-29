@@ -12,7 +12,7 @@
  * the rule the harness uses for `/api` (client-connection's isTrustedApiRequest)
  * with its non-loopback authority branch dropped — this deployment binds
  * loopback only, and no seam exposes a trusted-host list to a plugin.
- * @module dsh-local-soul-presets/src/guard
+ * @module dsh-soul-presets/src/guard
  */
 
 /** Loopback authorities, with an optional port. */

@@ -2,7 +2,7 @@
  * The template a new preset is created from. Its prompt bodies use TOML's
  * multi-line literal form, so whatever is written inside — quotes, braces,
  * JSON, `{{` — needs no escaping and cannot collide with the file's syntax.
- * @module dsh-local-soul-presets/src/template
+ * @module dsh-soul-presets/src/template
  */
 
 /**
