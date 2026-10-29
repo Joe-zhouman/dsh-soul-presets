@@ -23,12 +23,12 @@
 
 **桌面端（安装版 Electron）**：
 
-1. 设置 → 插件 → 添加插件，填 git 地址 `https://github.com/Joe-zhouman/dsh-local-soul-presets.git`，装完点「立即启用」。CLI 拒绝 desktop profile，应用内面板是桌面端唯一的安装入口。
+1. 设置 → 插件 → 添加插件，填 git 地址 `https://github.com/Joe-zhouman/dsh-soul-presets.git`，装完点「立即启用」。CLI 拒绝 desktop profile，应用内面板是桌面端唯一的安装入口。
 2. 把 `deploy/soul-prompt.mjs` 复制到 `%USERPROFILE%\.dsh\preset-plugins\`（即 `$DSH_HOME/preset-plugins/`）。
 3. 把 `deploy/preset-qa.row.yml` 的内容追加到 `%USERPROFILE%\.dsh\profiles\desktop\cordis.patch.yml` 末尾，并把其中 `file:///` 路径改成你机器上 soul-prompt.mjs 的绝对路径（文件头有说明）。
 4. 完全退出并重开桌面应用（profile 补丁在启动时加载）。
 
-**web 部署**：同样三步，第 1 步换成 `dsh plugin --profile web add "github:Joe-zhouman/dsh-local-soul-presets"`（或完整 git URL `git+https://github.com/Joe-zhouman/dsh-local-soul-presets.git`），第 3 步的补丁文件是 `$DSH_HOME/profiles/web/cordis.patch.yml`，第 4 步改为重启 web 服务。
+**web 部署**：同样三步，第 1 步换成 `dsh plugin --profile web add "github:Joe-zhouman/dsh-soul-presets"`（或完整 git URL `git+https://github.com/Joe-zhouman/dsh-soul-presets.git`），第 3 步的补丁文件是 `$DSH_HOME/profiles/web/cordis.patch.yml`，第 4 步改为重启 web 服务。
 
 装好后在设置页「预设提示词」分区新建／删除预设，或把 `.toml` 直接放进 `$DSH_HOME/soul-presets/`；问答模式 composer 的 chip 切换当前预设，下一轮提问生效，无需重开会话。全新部署的目录里没有任何 `.toml` 时，启动即自动种入随包的 35 个示例预设（见下节）——开箱就是一份能用的菜单。
 
