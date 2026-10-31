@@ -19,6 +19,8 @@
 
 ## 在别人的部署上安装
 
+手工步骤有四步，仓库带了把它们做成一条幂等命令的脚本：`scripts/install.mjs`（Windows 双击 `install.cmd`，macOS/Linux 用 `install.sh`）。用法、参数、验证清单、卸载与故障排查见 [INSTALL.md](INSTALL.md)。下面是脚本背后做的事，手工安装时照它做。
+
 `lib/` 预构建产物随仓库提交、包内无 prepare 脚本，所以从 git 安装不需要本地构建（包没有构建脚本也就不会触发 pnpm 的 allowBuilds 拦截）。前置：`DSH_HOME` 存在（默认 `~/.dsh`），机器能访问 github.com（git 安装源直连，不经 registry）。
 
 **桌面端（安装版 Electron）**：
@@ -246,7 +248,7 @@ export PATH="/d/softwares/node-v24.21.0-win-x64:$PATH"
 pnpm test
 ```
 
-145 个用例，覆盖：拼装字节与尺寸上限、TOML 解析与坏预设分类（含 `[Model]` 的完整／半写／类型错误）、逐文件 mtime 快照（含原地改写）、settings schema 与校验、模板可反解、回环 Host／Origin 守卫（含点分四段的越界段）、四条路由的方法分派与拒绝路径（含删除时 ENOENT 与其他失败的区分）、roster 解码与名称／简介／hint／模型映射、每会话选择（select 与重置路由、覆盖→默认→defaultPrompt 的裁决链、`.selections.json` 的持久化、500 条上限与陈旧行清理）、默认模型（新会话仅在有模型历史前施加、已有请求头／已选模型时不动、子代理 id 形状排除、不可路由时新会话照常建立且切换仍成功、`modelError` 在界面可见）、随包示例预设（种入判据与幂等、不覆盖已有、单个失败留日志其余照种、产物从 lib/../presets 解析后空目录部署即得 35 行且全部可解析）、客户端动作发出的真实请求与失败可见性、并发刷新只读一次、改动与在途刷新并发时会补读一次、动作成功但随后读取失败时读取失败仍可见、删除时 ENOENT 与 EPERM 的不同响应、订阅者抛错不会把共享 store 卡死，以及**构建产物本身**——`test/build.test.mjs` 会先跑一次真实构建，再导入 `lib/index.js`、用模块表加载器执行 `lib/client.js`、驱动它自己的 `apply()` 注册三个界面，并用录制的 React 真正调用 dock 与设置页组件，断言失败提示确实被渲染出来（删掉那两个错误元素会让测试变红）。另有 `test/soul-prompt-row.test.mjs` 覆盖部署侧的 `soul-prompt.mjs`（开关、服务缺席与返回 null 的回退、append 模式、`interpolate: false`），以及 `test/reveal.test.mjs` 覆盖目录 opener 的平台与失败路径。`test/build.test.mjs` 还把**构建后的宿主入口**放回同一套假 ctx 里跑一遍（不只对导出名做断言），并用带钩子状态的渲染器真的点一次 chip 的预设行、点一次删除再确认，断言选择写入与 DELETE 各发生一次。`test/soul-prompt-row.test.mjs` 另有两例固定两种快照语义：`append` 对同一 agent 只取一次（长对话的系统提示词必须字节稳定），`replace` 每次重读（一问一答没有前缀要保护）。**本插件不进 dsh 仓库的测试脚手架，也不改动它。**
+159 个用例，覆盖：拼装字节与尺寸上限、TOML 解析与坏预设分类（含 `[Model]` 的完整／半写／类型错误）、逐文件 mtime 快照（含原地改写）、settings schema 与校验、模板可反解、回环 Host／Origin 守卫（含点分四段的越界段）、四条路由的方法分派与拒绝路径（含删除时 ENOENT 与其他失败的区分）、roster 解码与名称／简介／hint／模型映射、每会话选择（select 与重置路由、覆盖→默认→defaultPrompt 的裁决链、`.selections.json` 的持久化、500 条上限与陈旧行清理）、默认模型（新会话仅在有模型历史前施加、已有请求头／已选模型时不动、子代理 id 形状排除、不可路由时新会话照常建立且切换仍成功、`modelError` 在界面可见）、随包示例预设（种入判据与幂等、不覆盖已有、单个失败留日志其余照种、产物从 lib/../presets 解析后空目录部署即得 35 行且全部可解析）、客户端动作发出的真实请求与失败可见性、并发刷新只读一次、改动与在途刷新并发时会补读一次、动作成功但随后读取失败时读取失败仍可见、删除时 ENOENT 与 EPERM 的不同响应、订阅者抛错不会把共享 store 卡死，以及**构建产物本身**——`test/build.test.mjs` 会先跑一次真实构建，再导入 `lib/index.js`、用模块表加载器执行 `lib/client.js`、驱动它自己的 `apply()` 注册三个界面，并用录制的 React 真正调用 dock 与设置页组件，断言失败提示确实被渲染出来（删掉那两个错误元素会让测试变红）。另有 `test/soul-prompt-row.test.mjs` 覆盖部署侧的 `soul-prompt.mjs`（开关、服务缺席与返回 null 的回退、append 模式、`interpolate: false`），以及 `test/reveal.test.mjs` 覆盖目录 opener 的平台与失败路径。`test/build.test.mjs` 还把**构建后的宿主入口**放回同一套假 ctx 里跑一遍（不只对导出名做断言），并用带钩子状态的渲染器真的点一次 chip 的预设行、点一次删除再确认，断言选择写入与 DELETE 各发生一次。`test/soul-prompt-row.test.mjs` 另有两例固定两种快照语义：`append` 对同一 agent 只取一次（长对话的系统提示词必须字节稳定），`replace` 每次重读（一问一答没有前缀要保护）。`test/install-lib.test.mjs` 覆盖安装脚本的文本变换：声明行模板、`[]` 替换与追加、只读点的幂等、`presets: true` 的补位与缩进、失效 `name` 的改写、flow 写法与重复行的拒绝、CRLF 保持。**本插件不进 dsh 仓库的测试脚手架，也不改动它。**
 
 界面改版后又加了三类：**产物只向模块表要两个平台模块**（`react` 与 `@deepseek-ai/dsh-client-ui-primitives` 都必须以 `require("…")` 出现，而不是被内联——内联会捎上 `react-dom`，而加载器遇到模块表答不上来的 specifier 会让整份用例失败）；**样式表按插件标记注入且只有一份**（用假 document 断言 `data-plugin`／`data-plugin-css` 与重复激活不插第二份，并断言表里带 chip 与列表行的规则）；**chip 交给共用菜单的正是切换列表**（断言 `side`／`portal`／`selectedId`／行文本与「空目录给一行说明而不是空菜单」，点行仍写入选择）。测试替身 `test/support/fake-ui-primitives.mjs` 把共用菜单按元素层渲染出来——录制版 React 不会调用嵌套函数组件，需要展开的地方由 `expand()` 显式调用。
 
